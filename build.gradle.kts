@@ -23,6 +23,9 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("com.google.firebase:firebase-admin:8.1.0")
+	implementation("org.flywaydb:flyway-core")
+	implementation("io.github.openfeign:feign-core:11.8")
+	implementation("org.springframework.cloud:spring-cloud-starter-openfeign:3.1.2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
 }
