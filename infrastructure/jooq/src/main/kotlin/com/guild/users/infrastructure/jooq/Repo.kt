@@ -1,10 +1,9 @@
 package com.guild.users.infrastructure.jooq
 
-import com.guild.users.application.commands.CreatePlayerCommand
+import com.guild.users.domain.commands.CreatePlayerCommand
 import com.guild.users.application.drivenports.WritePlayerDrivenPort
 import com.guild.users.domain.model.Player
 import java.math.BigDecimal
-import nu.studer.sample.Tables
 import nu.studer.sample.Tables.PLAYERS
 import nu.studer.sample.tables.records.PlayersRecord
 import org.jooq.DSLContext
@@ -23,8 +22,8 @@ class Repo(
         val x : PlayersRecord? = context.insertInto(PLAYERS, PLAYERS.USERNAME, PLAYERS.EMAIL, PLAYERS.PROFILE, PLAYERS.STRIKES)
             .values(player.userName, player.email, player.profileDescription, BigDecimal.valueOf(0))
             .returning()
-            .fetchOne();
+            .fetchOne()
 
-
+        return Player(id = ",", userName = "", email = "", profileDescription = "", 0)
     }
 }

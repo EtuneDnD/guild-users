@@ -18,11 +18,11 @@ class AppController(
     fun login(@RequestBody loginDto: LoginDto) : String = "hola"
         // fireBaseAuthConsumer.getToken(GetTokenDto(loginDto.userName, loginDto.password, true))
 
-    @Secured("ROLE_ANONYMOUS")
-    @PostMapping("/signup")
-    fun signup(@RequestBody createPlayerDto: CreatePlayerDto) {
-        writePlayerDrivingPort.savePlayer()
-    }
+//    @Secured("ROLE_ANONYMOUS")
+//    @PostMapping("/signup")
+//    fun signup(@RequestBody createPlayerDto: CreatePlayerDto) {
+//        writePlayerDrivingPort.savePlayer()
+//    }
 
     @Secured("ROLE_ANONYMOUS")
     @PostMapping("/admin/user-claims/{uid}")

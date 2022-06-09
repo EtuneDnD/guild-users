@@ -1,6 +1,6 @@
 package com.guild.users.application.drivingports
 
-import com.guild.users.application.commands.CreatePlayerCommand
+import com.guild.users.domain.commands.CreatePlayerCommand
 import com.guild.users.domain.model.Player
 
 interface WritePlayerDrivingPort {

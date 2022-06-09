@@ -7,6 +7,7 @@ plugins {
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.spring") version "1.6.21"
+    kotlin("kapt") version  "1.6.21"
 }
 
 allprojects {
@@ -18,6 +19,7 @@ allprojects {
         plugin("io.spring.dependency-management")
         plugin("org.jetbrains.kotlin.jvm")
         plugin("org.jetbrains.kotlin.plugin.spring")
+        plugin("kotlin-kapt")
     }
 
     repositories {
@@ -25,11 +27,16 @@ allprojects {
     }
 
     dependencies {
+        kapt("org.mapstruct:mapstruct-processor:1.5.1.Final")
+        implementation(kotlin("stdlib-jdk8"))
+        implementation("org.mapstruct:mapstruct:1.5.1.Final")
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
         implementation("org.springframework.boot:spring-boot-starter")
         testImplementation("org.springframework.boot:spring-boot-starter-test")
+        testImplementation("dev.forkhandles:fabrikate4k:2.1.1.0")
+        testImplementation("io.strikt:strikt-jvm:0.34.1")
     }
 
     tasks.withType<KotlinCompile> {

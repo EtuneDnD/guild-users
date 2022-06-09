@@ -1,4 +1,4 @@
-package com.guild.users.application.commands
+package com.guild.users.domain.commands
 
 data class CreatePlayerCommand(
     val userName: String,
