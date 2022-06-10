@@ -1,7 +1,7 @@
 package com.guild.users.infrastructure.jooq
 
 import com.guild.users.domain.commands.CreatePlayerCommand
-import com.guild.users.application.drivenports.WritePlayerDrivenPort
+import com.guild.users.domain.drivenports.PersistPlayerDrivenPort
 import com.guild.users.domain.model.Player
 import java.math.BigDecimal
 import nu.studer.sample.Tables.PLAYERS
@@ -10,9 +10,9 @@ import org.jooq.DSLContext
 import org.springframework.stereotype.Service
 
 @Service
-class Repo(
+internal class Repo(
     var context: DSLContext
-) : WritePlayerDrivenPort {
+) : PersistPlayerDrivenPort {
     fun get(): List<Any> {
         return context.selectFrom(PLAYERS).toList()
         return listOf<Any>()

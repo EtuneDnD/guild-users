@@ -1,4 +1,4 @@
-package com.guild.users.infrastructure.firebase
+package com.guild.users.infrastructure.firebase.config
 
 import com.google.auth.oauth2.GoogleCredentials
 import com.google.firebase.FirebaseApp
@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.core.io.Resource
 
 @Configuration
-class FireBaseAuthConfig {
+internal class FireBaseAuthConfig {
     @Value("classpath:service-account.json")
     private lateinit var serviceAccount: Resource
 

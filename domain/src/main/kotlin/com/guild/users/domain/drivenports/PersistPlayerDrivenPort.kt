@@ -1,8 +1,8 @@
-package com.guild.users.application.drivenports
+package com.guild.users.domain.drivenports
 
 import com.guild.users.domain.commands.CreatePlayerCommand
 import com.guild.users.domain.model.Player
 
-interface WritePlayerDrivenPort {
+interface PersistPlayerDrivenPort {
     fun savePlayer(player: CreatePlayerCommand): Player
 }
