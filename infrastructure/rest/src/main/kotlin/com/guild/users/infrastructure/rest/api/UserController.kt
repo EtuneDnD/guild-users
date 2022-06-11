@@ -1,4 +1,4 @@
-package com.guild.users.infrastructure.rest
+package com.guild.users.infrastructure.rest.api
 
 import com.guild.users.domain.commands.AddRoleCommand
 import com.guild.users.domain.drivingports.UserManagementDrivingPort
@@ -12,7 +12,7 @@ import org.springframework.security.access.annotation.Secured
 import org.springframework.web.bind.annotation.*
 
 @RestController
-internal class AppController(
+internal class UserController(
     private val userManagementDrivingPort: UserManagementDrivingPort,
     private val createPlayerMapper: CreatePlayerMapper,
     private val generateLoginTokenMapper: GenerateLoginTokenMapper,

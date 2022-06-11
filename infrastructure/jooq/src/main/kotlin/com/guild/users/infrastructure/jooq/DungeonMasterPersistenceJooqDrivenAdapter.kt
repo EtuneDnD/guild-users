@@ -1,7 +1,7 @@
 package com.guild.users.infrastructure.jooq
 
 import com.guild.users.domain.commands.CreatePlayerCommand
-import com.guild.users.domain.drivenports.PersistPlayerDrivenPort
+import com.guild.users.domain.drivenports.PlayerPersistenceDrivenPort
 import com.guild.users.domain.model.Player
 import java.math.BigDecimal
 import nu.studer.sample.Tables.PLAYERS
@@ -10,12 +10,11 @@ import org.jooq.DSLContext
 import org.springframework.stereotype.Service
 
 @Service
-internal class Repo(
+internal class DungeonMasterPersistenceJooqDrivenAdapter(
     var context: DSLContext
-) : PersistPlayerDrivenPort {
+) : PlayerPersistenceDrivenPort {
     fun get(): List<Any> {
         return context.selectFrom(PLAYERS).toList()
-        return listOf<Any>()
     }
 
     override fun savePlayer(player: CreatePlayerCommand): Player {
