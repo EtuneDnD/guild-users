@@ -34,8 +34,8 @@ allprojects {
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
         implementation("org.springframework.boot:spring-boot-starter")
+        implementation("dev.forkhandles:fabrikate4k:2.1.1.0")
         testImplementation("org.springframework.boot:spring-boot-starter-test")
-        testImplementation("dev.forkhandles:fabrikate4k:2.1.1.0")
         testImplementation("io.strikt:strikt-jvm:0.34.1")
     }
 

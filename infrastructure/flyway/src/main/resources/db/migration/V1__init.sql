@@ -6,9 +6,10 @@ CREATE TABLE "users"
     profile VARCHAR
 );
 
+
 CREATE TABLE "dungeon_masters"
 (
-    rank VARCHAR
+    rank VARCHAR --Change rank to proper enum
 ) INHERITS("users");
 
 CREATE TABLE "players"

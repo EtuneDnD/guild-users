@@ -7,4 +7,5 @@ abstract class CreateUserAbstractCommand {
     abstract val email: String
     abstract val password: String
     abstract val role: Role
+    abstract val profileDescription: String
 }
