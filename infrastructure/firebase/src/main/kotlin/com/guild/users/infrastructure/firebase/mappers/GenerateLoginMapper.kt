@@ -4,7 +4,7 @@ import com.guild.users.domain.commands.GenerateLoginTokenCommand
 import com.guild.users.infrastructure.firebase.rest.models.GetTokenDto
 import org.mapstruct.Mapper
 
-@Mapper
+@Mapper(componentModel = "spring")
 internal interface GenerateLoginMapper {
     fun toDto(command: GenerateLoginTokenCommand): GetTokenDto
 }

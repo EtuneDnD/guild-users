@@ -7,6 +7,6 @@ data class CreateDungeonMasterCommand(
     override val email: String,
     override val password: String,
     override val role: Role = Role.PLAYER,
-    override val profileDescription: String,
+    override val profileDescription: String?,
     val rank: Int,
 ): CreateUserAbstractCommand()
