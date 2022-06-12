@@ -12,3 +12,11 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-amqp:2.7.0")
     testImplementation("org.springframework.security:spring-security-test")
 }
+
+tasks.getByName<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
+    enabled = true
+}
+
+tasks.getByName<Jar>("jar") {
+    enabled = false
+}

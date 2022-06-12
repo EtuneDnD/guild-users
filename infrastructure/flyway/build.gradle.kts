@@ -5,10 +5,6 @@ dependencies {
     implementation("org.flywaydb:flyway-core")
 }
 
-tasks.getByName<Jar>("jar") {
-    enabled = true
-}
-
 plugins {
     id("org.flywaydb.flyway") version "8.5.12"
 }
@@ -18,4 +14,12 @@ flyway {
     user = "postgres"
     password = "example"
     schemas = listOf("public").toTypedArray()
+}
+
+tasks.getByName<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
+    enabled = false
+}
+
+tasks.getByName<Jar>("jar") {
+    enabled = true
 }

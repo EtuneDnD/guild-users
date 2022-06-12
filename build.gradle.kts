@@ -11,6 +11,7 @@ plugins {
 }
 
 allprojects {
+
     group = "com.guild"
     version = "0.0.1-SNAPSHOT"
 
@@ -34,7 +35,7 @@ allprojects {
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
         implementation("org.springframework.boot:spring-boot-starter")
-        implementation("dev.forkhandles:fabrikate4k:2.1.1.0")
+        implementation("dev.forkhandles:fabrikate4k:2.2.0.0")
         testImplementation("org.springframework.boot:spring-boot-starter-test")
         testImplementation("io.strikt:strikt-jvm:0.34.1")
     }

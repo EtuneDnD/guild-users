@@ -1,13 +1,13 @@
 package com.guild.users.application.services
 
 import com.guild.users.domain.commands.*
-import com.guild.users.domain.drivingports.UserManagementDrivingPort
 import com.guild.users.domain.drivenports.AuthorizeUserDrivenPort
 import com.guild.users.domain.drivenports.DungeonMasterPersistenceDrivenPort
 import com.guild.users.domain.drivenports.PlayerPersistenceDrivenPort
 import com.guild.users.domain.drivenports.UserManagementDrivenPort
-import com.guild.users.domain.model.Player
+import com.guild.users.domain.drivingports.UserManagementDrivingPort
 import com.guild.users.domain.model.Role
+import com.guild.users.domain.model.User
 import org.springframework.stereotype.Service
 
 @Service
@@ -21,7 +21,7 @@ class UserManagementDrivingAdapter(
     override fun authorizeUser(generateLoginTokenCommand: GenerateLoginTokenCommand) =
         authorizeUserDrivenPort.authorizeUser(generateLoginTokenCommand)
 
-    override fun saveUser(createUserAbstractCommand: CreateUserAbstractCommand): Player =
+    override fun saveUser(createUserAbstractCommand: CreateUserAbstractCommand): User =
         with(createUserAbstractCommand) {
             userManagementDrivenPort.createUser(CreateBaseUserCommand(email, password))
 
