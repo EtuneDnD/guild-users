@@ -1,4 +1,5 @@
 # Guild Users Microservice
+![example workflow](https://github.com/EtuneDnD/guild-users/actions/workflows/build.yml/badge.svg)
 ## Responsability
 The Guild Users Microservice is in charge of the user management this includes all operations related to users like
 *create*, *delete*, *modify*...
