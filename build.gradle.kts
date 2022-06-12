@@ -10,6 +10,14 @@ plugins {
     kotlin("kapt") version  "1.6.21"
 }
 
+tasks.getByName<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
+    enabled = false
+}
+
+tasks.getByName<Jar>("jar") {
+    enabled = true
+}
+
 allprojects {
 
     group = "com.guild"
