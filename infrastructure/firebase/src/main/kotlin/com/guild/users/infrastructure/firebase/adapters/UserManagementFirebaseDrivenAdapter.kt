@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service
 internal class UserManagementFirebaseDrivenAdapter(
     val firebaseAuth: FirebaseAuth
 ) : UserManagementDrivenPort {
-    override fun createUser(createUserCommand: CreateBaseUserCommand): Unit = with(createUserCommand) {
+    override fun createUser(createUserCommand: CreateBaseUserCommand): String = with(createUserCommand) {
         firebaseAuth.createUser(
             UserRecord.CreateRequest()
                 .setEmail(email)
                 .setPassword(password)
-        )
+        ).uid
     }
 
     override fun addRoleToUser(addRoleCommand: AddRoleCommand): Unit = with(addRoleCommand) {

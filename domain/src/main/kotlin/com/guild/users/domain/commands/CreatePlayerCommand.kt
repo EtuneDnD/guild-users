@@ -9,4 +9,6 @@ data class CreatePlayerCommand(
     override val role: Role = Role.PLAYER,
     override val profileDescription: String?,
     val strikes: Int,
-): CreateUserAbstractCommand()
+): CreateUserAbstractCommand(){
+    override lateinit var userId: String
+}

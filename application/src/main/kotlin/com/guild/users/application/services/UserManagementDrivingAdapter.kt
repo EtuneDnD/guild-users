@@ -23,7 +23,8 @@ class UserManagementDrivingAdapter(
 
     override fun saveUser(createUserAbstractCommand: CreateUserAbstractCommand): User =
         with(createUserAbstractCommand) {
-            userManagementDrivenPort.createUser(CreateBaseUserCommand(email, password))
+            val uuid: String = userManagementDrivenPort.createUser(CreateBaseUserCommand(email, password))
+            createUserAbstractCommand.userId = uuid
 
             return when (createUserAbstractCommand.role) {
                 Role.PLAYER ->
