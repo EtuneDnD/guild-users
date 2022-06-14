@@ -3,11 +3,18 @@ version: '3.1'
 
 services:
 
+  guild-users:
+    image: guild-users:local
+    restart: always
+    ports:
+      - "50001:50001"
+
   db:
     image: postgres
     restart: always
     environment:
       POSTGRES_PASSWORD: example
+      POSTGRES_DB: test
     ports:
       - "5432:5432"
 

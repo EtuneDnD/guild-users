@@ -4,5 +4,5 @@ import com.guild.users.domain.commands.CreatePlayerCommand
 import com.guild.users.domain.model.Player
 
 interface PlayerPersistenceDrivenPort {
-    fun savePlayer(player: CreatePlayerCommand): Player
+    fun savePlayer(createPlayerCommand: CreatePlayerCommand): Player
 }

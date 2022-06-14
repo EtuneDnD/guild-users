@@ -7,4 +7,3 @@ include("infrastructure:jooq")
 include("infrastructure:firebase")
 include("infrastructure:flyway")
 include("infrastructure:rabbitmq")
-findProject(":infrastructure:rabbitmq")?.name = "rabbitmq"
