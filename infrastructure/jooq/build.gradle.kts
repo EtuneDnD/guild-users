@@ -75,3 +75,9 @@ tasks.getByName<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar
 tasks.getByName<Jar>("jar") {
     enabled = true
 }
+
+tasks.named<nu.studer.gradle.jooq.JooqGenerate>("generateJooq") {
+    (launcher::set)(javaToolchains.launcherFor {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    })
+}

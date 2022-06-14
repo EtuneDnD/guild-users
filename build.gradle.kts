@@ -1,4 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.lang.Thread.sleep
+
 
 java.sourceCompatibility = JavaVersion.VERSION_17
 
@@ -7,7 +9,7 @@ plugins {
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.spring") version "1.6.21"
-    kotlin("kapt") version  "1.6.21"
+    kotlin("kapt") version "1.6.21"
 }
 
 tasks.getByName<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
@@ -61,17 +63,20 @@ allprojects {
 }
 
 abstract class DeployPostgresSQL : DefaultTask() {
+    @Input
+    var function: ((String, String) -> ProcessBuilder)? = null
+
     @TaskAction
     fun deployPostgresSQL() {
-        val p = ProcessBuilder(
-            "cmd.exe",
-            "/c",
+
+        val p = function?.invoke(
+            "docker-compose -f docker/docker-compose.yaml up -d db",
             "docker-compose -f docker/docker-compose.yaml up -d db"
-        ).start()
+        )
 
-        val results: List<String> = p.errorStream.bufferedReader().readLines()
+        val results: List<String>? = p?.start()?.errorStream?.bufferedReader()?.readLines()
 
-        results.forEach{
+        results?.forEach {
             println(it)
         }
     }
@@ -79,77 +84,93 @@ abstract class DeployPostgresSQL : DefaultTask() {
 }
 
 abstract class BuildDockerImage : DefaultTask() {
+    @Input
+    lateinit var function: ((String, String) -> ProcessBuilder)
+
     @TaskAction
     fun buildDockerImage() {
-        val p = ProcessBuilder(
-            "cmd.exe",
-            "/c",
+
+        val p = function.invoke(
+            "docker build -f docker/Dockerfile . -t guild-users:local",
             "docker build -f docker/Dockerfile . -t guild-users:local"
-        ).start()
+        )
 
-        val results: List<String> = p.errorStream.bufferedReader().readLines()
+        val results: List<String>? = p.start()?.errorStream?.bufferedReader()?.readLines()
 
-        results.forEach{
+        results?.forEach {
             println(it)
         }
     }
 }
 
 abstract class DeployDockerCompose : DefaultTask() {
+    @Input
+    lateinit var function: (String, String) -> ProcessBuilder
+
     @TaskAction
     fun deployDockerCompose() {
-        val p = ProcessBuilder(
+
+        val p = function.invoke(
+            "docker-compose -f docker/docker-compose.yaml up -d",
+            "docker-compose -f docker/docker-compose.yaml up -d"
+        )
+
+        p.start()
+    }
+
+}
+
+abstract class DeployLocalEnv : DefaultTask() {
+}
+
+fun generateProcessDependingOnOS(win: String, other: String): ProcessBuilder {
+    val os: String = System.getProperty("os.name", "generic").toLowerCase()
+
+    return when {
+        os.contains("win") -> ProcessBuilder(
             "cmd.exe",
             "/c",
-            "docker-compose -f docker/docker-compose.yaml up -d"
-        ).start()
-
-        val results: List<String> = p.errorStream.bufferedReader().readLines()
-
-        results.forEach{
-            println(it)
-        }
+            win
+        )
+        else ->
+            ProcessBuilder(
+                other
+            )
     }
-
 }
 
-abstract class Asd : DefaultTask() {
-    @TaskAction
-    fun asd() {
+tasks.register<DeployPostgresSQL>("deployPostgresSQL") {
+    function = ::generateProcessDependingOnOS
+    doLast {
+        sleep(20 * 1000) // TODO Read Output of docker deploy instead of sleep
     }
-
 }
 
-tasks.register<DeployPostgresSQL>("deployPostgresSQL"){
-}
-
-tasks.register<BuildDockerImage>("buildDockerImage"){
+tasks.register<BuildDockerImage>("buildDockerImage") {
+    function = ::generateProcessDependingOnOS
     val build = getTasksByName("build", true)
     dependsOn(build)
+    doLast {
+        sleep(10 * 1000)
+    }
 }
 
-tasks.register<DeployDockerCompose>("deployDockerCompose"){
+tasks.register<DeployDockerCompose>("deployDockerCompose") {
+    function = ::generateProcessDependingOnOS
     val buildDockerImage = tasks["buildDockerImage"]
 
     dependsOn(buildDockerImage)
 }
 
-tasks.register<Asd>("asd"){
-    val b = tasks["deployPostgresSQL"]
-    val flywayMigrate = getTasksByName("flywayMigrate", true)
-    val a = tasks["deployDockerCompose"]
+tasks.register<DeployLocalEnv>("deployLocalEnv") {
+    val deployPostgresSQL = tasks["deployPostgresSQL"]
+    val flywayMigrate = getTasksByName("flywayMigrate", true).toList()[0]
+    val deployDockerCompose = tasks["deployDockerCompose"]
 
+    dependsOn(deployPostgresSQL)
     dependsOn(flywayMigrate)
-    dependsOn(a)
-    dependsOn(b)
+    dependsOn(deployDockerCompose)
 
-    a.mustRunAfter(flywayMigrate)
-    flywayMigrate.
+    deployDockerCompose.mustRunAfter(flywayMigrate)
+    flywayMigrate.mustRunAfter(deployPostgresSQL)
 }
-
-
-// Levantar POSTGRESS CONTAINER
-// Correr Flyway
-// Build
-// Crear imagen de guild-users
-// Levantar docker compose
