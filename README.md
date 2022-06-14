@@ -48,7 +48,12 @@ To start the project:
 2. CD into the root project folder (`path_to_the_project/dev/guild-project/guild-users`)
 3. Execute ./gradlew deployLocalEnv
 
->WARNING: This is the legacy way 
+>Note: If you want to test it is not going to work because you will need a credentials file for Firebase not posted in
+> the repo for obvious reasons, but you can create your own Firebase account and add the credentials file
+> to the FireBase module in the next directory -> `src/main/resources/service-account.json`
+
+-----------------------------------------------------------
+>WARNING: You can deploy it this way but it's deprecated -> 
 
 ~~To start the project:~~
 1. ~~Make sure you have Docker installed in your machine~~
@@ -56,6 +61,3 @@ To start the project:
 3. ~~**Access with a terminal to the _docker_ folder and run `docker-compose up -d`**~~
 4. ~~With IntelliJ run the project going to the **_boot module_** and run the `UserApplication.kt` file~~
 
->Note: If you want to test it is not going to work because you will need a credentials file for Firebase not posted in
-> the repo for obvious reasons, but you can create your own Firebase account and add the credentials file
-> to the FireBase module in the next directory -> `src/main/resources/service-account.json`
